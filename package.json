@@ -1,0 +1,24 @@
+{
+  "name": "alltomp3-bot-client",
+  "version": "1.0.0",
+  "description": "Client for the Telegram AllToMP3 bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/AllToMP3/alltomp3-bot-client.git"
+  },
+  "author": "Basile Bruneau <basilebruneau@gmail.com>",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/AllToMP3/alltomp3-bot-client/issues"
+  },
+  "homepage": "https://github.com/AllToMP3/alltomp3-bot-client#readme",
+  "dependencies": {
+    "alltomp3": "git+https://github.com/AllToMP3/alltomp3.git",
+    "node-persist": "^2.0.11",
+    "websocket": "^1.0.24"
+  }
+}
