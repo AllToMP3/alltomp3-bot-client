@@ -18,6 +18,7 @@
   "homepage": "https://github.com/AllToMP3/alltomp3-bot-client#readme",
   "dependencies": {
     "alltomp3": "^0.3.0",
+    "fluent-ffmpeg": "^2.1.2",
     "node-persist": "^2.0.11",
     "websocket": "^1.0.24"
   }
