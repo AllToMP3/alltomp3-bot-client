@@ -2,7 +2,6 @@ const WebSocketClient = require("websocket").client;
 const storage = require("node-persist");
 const alltomp3 = require("alltomp3");
 const fs = require("fs");
-const ffmpeg = require("fluent-ffmpeg");
 
 const SERVER_URL = "wss://server.alltomp3.org/telegram/";
 const MAX_PARALLEL = 4;
@@ -62,15 +61,19 @@ let processing = {
       };
 
       const fileStats = fs.statSync(infos.file);
-      if (fileStats.size >= 49 * 1000 * 1000) {
+      if (fileStats.size >= 49 * 1000 * 1000 && q.singleURL) {
         console.log("File too large: converting to 128 kb/s");
         // Telegram has a max size of 50 MB
-        const smallerFile = `${infos.file}.small.mp3`;
-        ffmpeg(infos.file)
-          .audioBitrate("128k")
-          .addOutput(smallerFile)
-          .once("end", () => sendFile(smallerFile))
-          .run();
+        const newEvents = alltomp3.downloadAndTagSingleURL(
+          q.singleURL,
+          TEMP_FOLDER,
+          null,
+          null,
+          null,
+          null,
+          { bitrate: "128k" }
+        );
+        newEvents.once("end", (newInfos) => sendFile(newInfos.file));
       } else {
         sendFile(infos.file);
       }
