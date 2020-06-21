@@ -63,11 +63,12 @@ let processing = {
 
       const fileStats = fs.statSync(infos.file);
       if (fileStats.size >= 49 * 1000 * 1000) {
+        console.log("File too large: converting to 128 kb/s");
         // Telegram has a max size of 50 MB
         const smallerFile = `${infos.file}.small.mp3`;
         ffmpeg(infos.file)
           .audioBitrate("128k")
-          .addOutput(filepath)
+          .addOutput(smallerFile)
           .once("end", () => sendFile(smallerFile))
           .run();
       } else {
