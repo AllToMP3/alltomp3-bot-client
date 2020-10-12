@@ -57,11 +57,13 @@ let processing = {
           con.sendBytes(buf);
           this.active -= 1;
           this.processNext();
+          fs.unlinkSync(filepath);
         });
       };
 
       const fileStats = fs.statSync(infos.file);
       if (fileStats.size >= 49 * 1000 * 1000 && q.singleURL) {
+        fs.unlinkSync(infos.file);
         console.log('File too large: converting to 128 kb/s');
         // Telegram has a max size of 50 MB
         const newEvents = alltomp3.downloadAndTagSingleURL(q.singleURL, TEMP_FOLDER, null, null, null, null, {
